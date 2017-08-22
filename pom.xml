@@ -45,6 +45,12 @@
       <artifactId>freemarker</artifactId>
       <version>2.3.23</version>
     </dependency>
+    <!--bez tego freemarkar nie działa >-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>3.2.4.RELEASE</version>
+    </dependency>
 
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -61,5 +67,32 @@
   </dependencies>
   <build>
     <finalName>nightlife</finalName>
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.2</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+            <warSourceDirectory>src/main/webapp</warSourceDirectory>
+            <warName>nightlife</warName>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+          </configuration>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
   </build>
+
 </project>

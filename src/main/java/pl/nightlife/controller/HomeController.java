@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController
 {
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String getAdminMainPage(Model model)
+    public String getAdminMainPage()
     {
         return "home/mainPage";
     }
