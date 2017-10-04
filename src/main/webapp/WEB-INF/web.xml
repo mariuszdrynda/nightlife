@@ -13,6 +13,7 @@
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>/WEB-INF/applicationContext.xml</param-value>
+      <param-value>/WEB-INF/applicationContext-security.xml</param-value>
     </init-param>
 
   </servlet>

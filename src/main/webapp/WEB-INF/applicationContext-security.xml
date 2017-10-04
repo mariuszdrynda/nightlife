@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <!-- Resources do not need security -->
+    <sec:http pattern="/assets/**" security="none" />
+
+
+    <!-- Set up Spring security for the application -->
+    <sec:http auto-config="false" authentication-manager-ref="blAuthenticationManager" disable-url-rewriting="true">
+        <!-- We handle session fixation protection ourselves  -->
+        <sec:session-management session-fixation-protection="none" />
+
+        <!-- All URLs not explicitly specified as https will be served under http -->
+        <sec:intercept-url pattern="/**" access="ROLE_SUPPLIER" requires-channel="any"/>
+        <!-- Define the login form along with the success and failure handlers -->
+        <sec:form-login login-page='/login'
+                        authentication-success-handler-ref="blAuthenticationSuccessHandler"
+                        authentication-failure-handler-ref="blAuthenticationFailureHandler"
+                        login-processing-url="/login_post.htm"
+        />
+    </sec:http>
+
+    <!--  The BLC Authentication manager.   -->
+    <sec:authentication-manager alias="blAuthenticationManager">
+        <sec:authentication-provider user-service-ref="dtpSupplierUserDetailsService">
+            <sec:password-encoder ref="blPasswordEncoder" />
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+
+    <!-- Sets the login failure URL -->
+    <bean id="blAuthenticationFailureHandler" class="org.broadleafcommerce.common.security.BroadleafAuthenticationFailureHandler">
+        <constructor-arg value="/login?error=true" />
+        <property name="redirectStrategy" ref="blAuthenticationFailureRedirectStrategy" />
+    </bean>
+
+    <!-- Sets the login success URL -->
+    <bean id="blAuthenticationSuccessHandler" class="org.broadleafcommerce.core.web.order.security.BroadleafAuthenticationSuccessHandler">
+        <property name="redirectStrategy" ref="blAuthenticationSuccessRedirectStrategy" />
+        <property name="defaultTargetUrl" value="/order" />
+        <property name="targetUrlParameter" value="successUrl" />
+        <property name="alwaysUseDefaultTargetUrl" value="true" />
+    </bean>
+</beans>
