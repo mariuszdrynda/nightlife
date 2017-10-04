@@ -16,6 +16,6 @@ public class HomeController
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getAdminMainPage()
     {
-        return "home/mainPage";
+        return "frontTest/dashboard";
     }
 }

@@ -1,10 +1,9 @@
-package pl.nightlife.persistence.entity;
+package pl.nightlife.persistence.entity.impl;
+
+import pl.nightlife.persistence.entity.NTLAbstractEntity;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "NTL_OFFER")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Offer extends NTLAbstractEntity
 {
     @Column(name = "NAME")

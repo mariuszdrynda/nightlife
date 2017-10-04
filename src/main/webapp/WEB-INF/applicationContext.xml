@@ -10,18 +10,44 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <context:component-scan base-package="pl.nightlife"/>
+    <mvc:resources mapping="/assets/**" location="/assets/"/>
     <mvc:annotation-driven/>
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="cache" value="true"/>
-        <property name="prefix" value=""/>
-        <property name="suffix" value=".ftl"/>
-        <property name="requestContextAttribute" value="rc"/>
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/templates/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5" />
     </bean>
 
-    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="TemplateLoaderPath" value="/WEB-INF/templates"/>
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
     </bean>
+
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="pl.sibs.domain"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost/nightlifedb"/>
+        <property name="username" value="nightlifeuser"/>
+        <property name="password" value="nightlife"/>
+    </bean>
+
 
 </beans>

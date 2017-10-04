@@ -1,4 +1,4 @@
-package pl.nightlife.persistence.entity;
+package pl.nightlife.persistence.entity.impl;
 
 import javax.persistence.Entity;
 

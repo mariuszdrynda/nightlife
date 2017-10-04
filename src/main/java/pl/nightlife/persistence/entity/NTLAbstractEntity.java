@@ -3,12 +3,11 @@ package pl.nightlife.persistence.entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class NTLAbstractEntity
+public abstract class NTLAbstractEntity
 {
     @Id
     @GeneratedValue
     private Long id;
-
 
     public Long getId()
     {
