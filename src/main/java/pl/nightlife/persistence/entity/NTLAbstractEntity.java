@@ -3,19 +3,10 @@ package pl.nightlife.persistence.entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public abstract class NTLAbstractEntity
+public interface NTLAbstractEntity
 {
-    @Id
-    @GeneratedValue
-    private Long id;
 
-    public Long getId()
-    {
-        return id;
-    }
+    Long getId();
 
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
+    void setId(Long id);
 }

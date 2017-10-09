@@ -18,4 +18,10 @@ public class HomeController
     {
         return "frontTest/dashboard";
     }
+
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String getLoginPage()
+    {
+        return "loginPage";
+    }
 }

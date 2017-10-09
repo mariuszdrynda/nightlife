@@ -4,8 +4,13 @@ import pl.nightlife.persistence.entity.NTLAbstractEntity;
 
 import javax.persistence.*;
 
-public class Offer extends NTLAbstractEntity
+public class Offer implements NTLAbstractEntity
 {
+    @Id
+    @GeneratedValue
+    @Column(name = "ID")
+    private Long id;
+
     @Column(name = "NAME")
     private String name;
 
@@ -30,5 +35,17 @@ public class Offer extends NTLAbstractEntity
     public void setCyclic(Boolean cyclic)
     {
         this.cyclic = cyclic;
+    }
+
+    @Override
+    public Long getId()
+    {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 }

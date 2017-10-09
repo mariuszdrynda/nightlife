@@ -1,0 +1,55 @@
+<section class="login container">
+    <div class="row">
+
+        <div class="col-md-1-2 col-xs-1 login-part">
+            <div class="h1" th:text="#{loginPage.signIn}"></div>
+
+            <form th:action="@{/login_post.htm}" method="POST">
+                <div class="input-form-text">
+                    <label class="custom-label" th:utext="#{loginPage.email}"></label>
+                    <input class="form-control" name="j_username" type="text" th:placeholder="#{forgotPassword.email}"/>
+                    <th:block th:if="${error}">
+                        <span th:switch="${error}"
+                              class="error active">
+                            <th:block th:case="blocked" th:text="#{loginPage.error.blocked}"/>
+                            <th:block th:case="unconfirmed" th:text="#{loginPage.error.unconfirmed}"/>
+                            <th:block th:case="not-active" th:text="#{loginPage.error.not.active}"/>
+                            <th:block th:case="not-found" th:text="#{loginPage.error.not.found}"/>
+                            <th:block th:case="true" th:text="#{loginPage.error.true}"/>
+                        </span>
+                    </th:block>
+                </div>
+
+                <div class="input-form-text">
+                    <label class="custom-label" th:utext="#{loginPage.password}"></label>
+                    <input class="form-control" name="j_password" type="password" th:placeholder="#{loginPage.password}"/>
+                </div>
+
+                <div class="action-wrapper">
+                    <a th:href="@{/forgotPassword}" class="custom-link forgot-password"
+                       th:text="#{loginPage.forgot.password}"></a>
+
+                    <button class="btn btn-font-style btn-success w-170" type="submit" th:text="#{loginPage.signIn}"></button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-1-2 col-xs-1">
+            <div class="h1" th:text="#{loginPage.register.line_1}"></div>
+            <div class="description" th:text="#{loginPage.register.line_2}"></div>
+            <div class="margin-left-a">
+                <a th:href="@{/consumer/register}" class="text-align-right">
+                    <button class="btn btn-font-style btn-success w-170" type="submit" th:text="#{registerForm.signUp}"></button>
+                </a>
+            </div>
+
+            <div class="h1" th:text="#{loginPage.supplier.line_1}"></div>
+            <div class="margin-left-a">
+                <a th:href="${supplierLoginPanelUrl}" class="text-align-right">
+                    <button class="btn btn-font-style btn-success w-170" type="submit" th:text="#{loginPage.signIn}"></button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
