@@ -1,7 +1,9 @@
 package pl.przemsoft.nightlife;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .position(new LatLng(-33.87365, 151.20689))
                 .title("Sydney"));
 
-        marker.setTag("dupa");
+        //marker.setTag("dupa");
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
@@ -61,7 +63,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return false;
     }
 
+    private void downloadPlaceList()
+    {
+
+    }
+
     private void associateMarkersWithDate()
+    {
+
+    }
+    //BUTTON ON CLICK METHODS
+    public void onSwitchActivityButton(View view)
+    {
+        //TODO save changes made by user if needed
+        //Intent
+    }
+
+    public void onEnterSettingsButton(View view)
     {
 
     }
