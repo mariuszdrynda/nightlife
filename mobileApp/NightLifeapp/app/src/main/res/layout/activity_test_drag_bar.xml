@@ -9,9 +9,13 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_test_drag_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        layout="@layout/activity_maps"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

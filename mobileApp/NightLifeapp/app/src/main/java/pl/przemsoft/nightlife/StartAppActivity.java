@@ -12,7 +12,7 @@ public class StartAppActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_app);
-        Intent intent = new Intent(this, TestDragBarActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 }
