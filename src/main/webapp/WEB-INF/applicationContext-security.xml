@@ -1,0 +1,29 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+    <context:component-scan base-package="pl.nightlife.security"/>
+    <http auto-config="true">
+        <intercept-url pattern="/place-management/**" access="hasRole('ROLE_PLACE')"/>
+        <intercept-url pattern="/user-api/**" access="hasRole('ROLE_CUSTOMER')"/>
+        <csrf disabled="true"/>
+        <form-login username-parameter="username"
+                    password-parameter="password"
+                    authentication-success-handler-ref="ntlSuccessHandler"
+                    authentication-failure-url="/loginDenied"/>
+        <logout logout-success-url="/"/>
+    </http>
+
+    <beans:bean id="bCryptPasswordEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <authentication-manager id="authenticationManager">
+        <authentication-provider
+                user-service-ref="ntlUserDetailsService">
+            <password-encoder ref="bCryptPasswordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>
