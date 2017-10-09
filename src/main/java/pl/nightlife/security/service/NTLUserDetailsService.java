@@ -1,6 +1,5 @@
 package pl.nightlife.security.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.nightlife.enumeration.NTLAuthorityType;
 import pl.nightlife.persistence.entity.NTLAbstractUser;
-import pl.nightlife.persistence.repository.NTLUserRepository;
+import pl.nightlife.security.dao.NTLUserRepository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -21,8 +20,7 @@ import java.util.List;
 @Service("ntlUserDetailsService")
 public class NTLUserDetailsService implements UserDetailsService
 {
-
-    @Autowired
+    @Resource
     private NTLUserRepository userRepository;
 
     @Transactional(readOnly = true)
@@ -37,14 +35,4 @@ public class NTLUserDetailsService implements UserDetailsService
         grantedAuthorities.add(new SimpleGrantedAuthority(NTLAuthorityType.ROLE_PLACE.getRole()));
         return new User(username, user.getPassword(), grantedAuthorities);
     }
-
-
-    private List<GrantedAuthority> getGrantedAuthorities(NTLAbstractUser user)
-    {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getAuthorityType()));
-
-        return authorities;
-    }
-
 }

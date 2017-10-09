@@ -40,9 +40,9 @@ public class NTLSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         List<String> roles = authorities.stream().map((Function<GrantedAuthority, String>) GrantedAuthority::getAuthority).collect(Collectors.toList());
 
         if (isAdmin(roles)) {
-            url = "/admin";
+            url = "/place-management";
         } else if (isUser(roles)) {
-            url = "/customer";
+            url = "/user-api";
         } else {
             url = "/accessDenied";
         }
@@ -63,7 +63,7 @@ public class NTLSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     }
 
     private boolean isAdmin(List<String> roles) {
-        return roles.contains("ROLE_ADMIN");
+        return roles.contains("ROLE_PLACE");
     }
 
 }
